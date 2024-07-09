@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import MealItem from './MealItem'
+import Modal from './Modal'
 export default function Meals() {
     const [mealsList, setMealsList] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -16,11 +17,15 @@ export default function Meals() {
     }, [])
     
     return (
+        <>
         <ul id="meals">
             {isLoading ? <p>Loading...</p> :
                 mealsList.map((meal) => {
-                   return  <MealItem key={meal.id} {...meal} />
+                   return  <MealItem key={meal.id} meal={meal} />
                 })}
         </ul>
+        <Modal />
+        </>
+        
     )
 }
