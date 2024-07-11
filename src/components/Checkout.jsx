@@ -18,6 +18,18 @@ const Checkout = () => {
         event.preventDefault() // to stop the default behaviour of the form which alwayes reload the page
         const fd = new FormData(event.target) // to get all inputs values by default js function
         const data = Object.fromEntries(fd.entries()) // add data in data object
+        console.log(itemsCtx, 'xxxitemsCtx')
+        fetch('http://localhost:3000/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                order: {
+                    items: itemsCtx?.items,
+                    customer: data
+                }
+        })})
 
     }
 
@@ -26,11 +38,11 @@ const Checkout = () => {
             <form onSubmit={onSubmitOrder}>
                 <h2>Checkout</h2>
                 <p>Total mount:{currencyFormatter.format(cartTotal)}</p>
-                <Input id="full_name" label="Full Name" type="text" />
-                <Input id="Email_address" label="Email" type="email" />
-                <Input id="street_address" label="Street" type="text" />
+                <Input id="name" label="Full Name" type="text" />
+                <Input id="email" label="Email" type="email" />
+                <Input id="street" label="Street" type="text" />
                 <p className="control-row">
-                    <Input id="postal_code" label="Postal Code" type="text" />
+                    <Input id="postal-code" label="Postal Code" type="text" />
                     <Input id="city" label="City" type="text" />
                 </p>
                 <p className="modal-actions">
